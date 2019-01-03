@@ -100,4 +100,24 @@ public class IntArrayWorker
     }
   }
  
+  
+  public int getCount(int findThisNumber)
+  {
+	  int count = 0;
+	  
+	  for (int [] row : matrix)
+	  {
+		  for(int item : row)
+		  {
+			  if(findThisNumber == item)
+			  {
+				  count++;
+			  }
+		  }
+	  }
+	  
+	  
+	  return count;
+  }
+  
 }
