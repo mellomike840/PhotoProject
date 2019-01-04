@@ -99,6 +99,12 @@ public class Picture extends SimplePicture
     }
   }
   
+  public void zeroRed2()
+  {
+	  Pixel[][] pixels = this.getPixels2D();
+	 
+  }
+  
   public void zerRed()
   {
     Pixel[][] pixels = this.getPixels2D();
