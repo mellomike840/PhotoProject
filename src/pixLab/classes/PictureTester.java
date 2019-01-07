@@ -71,7 +71,7 @@ public class PictureTester
     //testMirrorArms();
     //testMirrorGull();
     //testMirrorDiagonal();
-    //testCollage();
+    testCollage();
     //testCopy();
     //testEdgeDetection();
     //testEdgeDetection2();
