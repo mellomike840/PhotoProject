@@ -1,4 +1,6 @@
 package pixLab.classes;
+
+import java.awt.*;
 /**
  * This class contains class (static) methods
  * that will help you test the Picture class 
@@ -51,6 +53,18 @@ public class PictureTester
     swan.edgeDetection(10);
     swan.explore();
   }
+  
+  public static void testChromakey()
+  {
+	  Picture source = new Picture("arch.jpg");
+	  Picture background = new Picture("moon-surface.jpg");
+	  source.explore();
+	  background.explore();
+	  source.chromakey(background, Color.WHITE);
+	  source.explore();
+  }
+  
+  
   
   /** Main method for testing.  Every class can have a main
     * method in Java */
