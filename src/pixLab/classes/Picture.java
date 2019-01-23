@@ -373,25 +373,134 @@ public class Picture extends SimplePicture
 	  }
   }
   
+  public void sheftLeftRight(int amount)
+  {
+	  Pixel[][] pixels = this.getPixels2D();
+	  Picture temp = new Picture(this);
+	  Pixel [][] copied = temp.getPixels2D();
+	  
+	  int shiftedValue = amount;
+	  int width = pixels[0].length;
+	  
+	  for (int row = 0; row < pixels.length; row++)
+	  {
+		  for (int col = 0; col < pixels[0].length; col++)
+		  {
+			  shiftedValue = (col + amount) % width;
+			  copied[row][col].setColor(pixels[row][shiftedValue].getColor());
+		  }
+	  } 
+	  for (int row = 0; row < pixels.length; row++)
+	  {
+		  for (int col = 0; col < pixels[0].length; col++)
+		  {
+			  pixels[row][col].setColor(copied[row][col].getColor());
+		  }
+	  }
+  }
+
+  public void shiftUpDown(int amount)
+  {
+ 	  Pixel [][] pixels = this.getPixels2D();
+ 	  Picture temp = new Picture(this);
+ 	  Pixel [][] copied = temp.getPixels2D();
+ 	  
+ 	  int shiftedValue = amount;
+ 	  int height = pixels.length;
+ 	  
+ 	  for (int row = 0; row < pixels.length; row++)
+ 	  {
+ 		  for (int col = 0; col < pixels[0].length; col++)
+ 		  {
+ 			  shiftedValue = Math.abs((row + amount) % height);
+ 			  copied [row][col].setColor(pixels[shiftedValue][col].getColor());
+ 		  }
+ 	  }
+ 		  
+ 		  for (int row = 0; row < pixels.length; row ++)
+ 		  {
+ 			  for (int col = 0; col < pixels[0].length; col++)
+ 			  {
+ 				  pixels[row][col].setColor(copied[row][col].getColor());
+ 			  }
+ 		  }
+ 	  }
+  
+  
+  public void Steganography()
+  {
+	  
+  }
+  
+  public void hidePicture(Picture hidden)
+  {
+	  Pixel[][] pixels = this.getPixels2D();
+	  Pixel[][] hiddenPixels = hidden.getPixels2D();
+	  
+	  for(int row = 0; row < pixels.length && row < hiddenPixels.length; row++)
+	  {
+		  for(int col = 0; col < pixels[0].length && col < hiddenPixels[0].length; col++)
+		  {
+			  //There is a message to hide
+			  if(hiddenPixels[row][col].colorDistance(Color.WHITE) > 5)
+			  {
+				  if (pixels[row][col].getRed() > 0 && pixels[row][col].getRed() % 2 != 1)
+				  {
+					  pixels[row][col].setRed(pixels[row][col].getRed() - 1);
+				  }
+			  }
+			  else if (pixels[row][col].getRed() > 0 && pixels[row][col].getRed() % 2 == 1)
+			  {
+				  pixels[row][col].setRed(pixels[row][col].getRed() - 1);
+			  }
+		  }
+	  }
+  }
+  
+  public void revealPicture()
+  {
+	  Pixel[][] pixels = this.getPixels2D();
+	  
+	  for(int row = 0; row < pixels.length; row++)
+	  {
+		  for(int col = 0; col < pixels[0].length; col++)
+		  {
+			  //There is a message to reveal
+			  if(pixels[row][col].getRed() > 0 && pixels[row][col].getRed() % 2 != 1)
+			  {
+				  pixels[row][col].setColor(Color.ORANGE);
+			  }
+			  else if(pixels[row][col].getRed() % 2 == 1)
+			  {
+				  pixels[row][col].setColor(Color.BLUE);
+			  }
+		  }
+	  }
+  }
+  
+  
+  
+
+  
   
   /* Main method for testing - each class in Java can have a main 
    * method 
    */
   public static void main(String[] args) 
   {
-    Picture seagull = new Picture("CodingTutorial.png");
-    Picture gull = new Picture("MandelGlitch.png");
-    seagull.explore();
-    seagull.glitchIt(seagull, 200, 192, 10);
+    Picture mandelOne = new Picture("mandelbrot1.jpg");
+    Picture mandelTwo = new Picture("mandelbrot2.jpg");
+    mandelOne.explore();
+    mandelOne.glitchIt(mandelOne, 200, 192, 10);
     //seagull.edgeDetection(10);
-    seagull.explore();
+    mandelOne.explore();
     
     
-    Picture source = new Picture("blueMotercycle.jpg");
-	  Picture background = new Picture("moon-surface.jpg");
+    Picture source = new Picture("mandelbrot.jpg");
+	  Picture background = new Picture("mandelbrot.jpg");
 	  source.explore();
 	  background.explore();
-	  source.chromakey(background, Color.BLACK);
+	  source.chromakey(background, Color.BLUE);
 	  source.explore();
   }
   
